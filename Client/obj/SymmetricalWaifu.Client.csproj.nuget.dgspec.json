@@ -1,0 +1,156 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/roncake/Webapps/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj": {}
+  },
+  "projects": {
+    "/home/roncake/Webapps/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roncake/Webapps/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj",
+        "projectName": "SymmetricalWaifu.Client",
+        "projectPath": "/home/roncake/Webapps/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj",
+        "packagesPath": "/home/roncake/.nuget/packages/",
+        "outputPath": "/home/roncake/Webapps/SymmetricalWaifu/Client/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roncake/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/roncake/Webapps/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj": {
+                "projectPath": "/home/roncake/Webapps/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.0, 6.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.0, 6.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
+              "version": "[6.0.2, 6.0.2]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/roncake/.dotnet/sdk/7.0.100-preview.2.22153.17/RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "browser-wasm": {
+          "#import": []
+        }
+      }
+    },
+    "/home/roncake/Webapps/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roncake/Webapps/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj",
+        "projectName": "SymmetricalWaifu.Shared",
+        "projectPath": "/home/roncake/Webapps/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj",
+        "packagesPath": "/home/roncake/.nuget/packages/",
+        "outputPath": "/home/roncake/Webapps/SymmetricalWaifu/Shared/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roncake/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.0, 6.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.0, 6.0.0]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/roncake/.dotnet/sdk/7.0.100-preview.2.22153.17/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

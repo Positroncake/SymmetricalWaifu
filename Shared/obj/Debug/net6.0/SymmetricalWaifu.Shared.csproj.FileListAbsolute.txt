@@ -1,0 +1,12 @@
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/bin/Debug/net6.0/SymmetricalWaifu.Shared.deps.json
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/bin/Debug/net6.0/SymmetricalWaifu.Shared.dll
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/bin/Debug/net6.0/SymmetricalWaifu.Shared.pdb
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/SymmetricalWaifu.Shared.csproj.AssemblyReference.cache
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/SymmetricalWaifu.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/SymmetricalWaifu.Shared.AssemblyInfoInputs.cache
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/SymmetricalWaifu.Shared.AssemblyInfo.cs
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/SymmetricalWaifu.Shared.csproj.CoreCompileInputs.cache
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/SymmetricalWaifu.Shared.dll
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/refint/SymmetricalWaifu.Shared.dll
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/SymmetricalWaifu.Shared.pdb
+/home/roncake/RiderProjects/SymmetricalWaifu/Shared/obj/Debug/net6.0/ref/SymmetricalWaifu.Shared.dll

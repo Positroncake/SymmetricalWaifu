@@ -8,6 +8,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SymmetricalWaifu.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SymmetricalWaifu.Shared", "Shared\SymmetricalWaifu.Shared.csproj", "{FC0BEA2E-32E8-4B7D-B933-AD490053C6C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAccess", "DatabaseAccess\DatabaseAccess.csproj", "{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,18 @@ Global
 		{FC0BEA2E-32E8-4B7D-B933-AD490053C6C7}.Release|x64.Build.0 = Release|Any CPU
 		{FC0BEA2E-32E8-4B7D-B933-AD490053C6C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{FC0BEA2E-32E8-4B7D-B933-AD490053C6C7}.Release|x86.Build.0 = Release|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Debug|x64.Build.0 = Debug|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Debug|x86.Build.0 = Debug|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Release|x64.ActiveCfg = Release|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Release|x64.Build.0 = Release|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Release|x86.ActiveCfg = Release|Any CPU
+		{DF03A1BA-4C14-4DE4-951B-55EADA8DDF62}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

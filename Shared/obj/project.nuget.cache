@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CZ7AC2rchyMX8w1UHyaLEQJNmBqTob6hBhguJ0MoR+o/5FRFqLIEVo7OKxnQFXHQXIS932gy9Kn0sgizLQHLFw==",
+  "dgSpecHash": "NN1Wb2ehmhz4i5GMKPw0zChNmbNDbk5ukmRAkEUohbh/AaKDCYKk7I2Iicu84kI/vioHJN/dpIoaiAZyvRJwbA==",
   "success": true,
-  "projectFilePath": "/home/roncake/Webapps/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj",
+  "projectFilePath": "/home/roncake/RiderProjects/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj",
   "expectedPackageFiles": [
     "/home/roncake/.nuget/packages/microsoft.netcore.app.ref/6.0.0/microsoft.netcore.app.ref.6.0.0.nupkg.sha512",
     "/home/roncake/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.0/microsoft.aspnetcore.app.ref.6.0.0.nupkg.sha512"

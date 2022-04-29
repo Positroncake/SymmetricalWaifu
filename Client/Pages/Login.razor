@@ -1,0 +1,26 @@
+@page "/Login"
+@using SymmetricalWaifu.Shared
+@using System.Text
+@inject HttpClient HttpClient
+
+<p>Username</p>
+<input @bind="_uname"/>
+<p>Password</p>
+<input @bind="_pwd" type="password"/>
+<button @onclick="SendToServer">Login</button>
+
+@code {
+
+    private String? _uname, _pwd;
+
+    private async void SendToServer()
+    {
+        var loginRequest = new LoginRequest
+        {
+            Username = _uname!,
+            Password = Encoding.UTF32.GetBytes(_pwd!)
+        };
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Login", loginRequest);
+    }
+
+}

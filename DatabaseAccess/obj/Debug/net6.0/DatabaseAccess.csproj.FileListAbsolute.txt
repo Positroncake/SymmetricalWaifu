@@ -1,0 +1,12 @@
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/bin/Debug/net6.0/DatabaseAccess.deps.json
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/bin/Debug/net6.0/DatabaseAccess.dll
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/bin/Debug/net6.0/DatabaseAccess.pdb
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/DatabaseAccess.csproj.AssemblyReference.cache
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/DatabaseAccess.GeneratedMSBuildEditorConfig.editorconfig
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/DatabaseAccess.AssemblyInfoInputs.cache
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/DatabaseAccess.AssemblyInfo.cs
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/DatabaseAccess.csproj.CoreCompileInputs.cache
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/DatabaseAccess.dll
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/refint/DatabaseAccess.dll
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/DatabaseAccess.pdb
+/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/Debug/net6.0/ref/DatabaseAccess.dll

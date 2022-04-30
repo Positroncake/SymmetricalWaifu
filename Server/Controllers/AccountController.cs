@@ -9,8 +9,6 @@ namespace SymmetricalWaifu.Server.Controllers;
 [Route("AccountApi")]
 public class AccountController : ControllerBase
 {
-    private const String ConnectionString = Access.ConnectionString;
-
     [HttpPost]
     [Route("Register")]
     public async Task<ActionResult> Register([FromBody] RegistrationRequest registrationRequest)
@@ -29,29 +27,19 @@ public class AccountController : ControllerBase
             Joined = System.DateTime.UtcNow,
             Submissions = 0,
             WinningSubmissions = 0
-        }, ConnectionString);
-        return Ok("Done. Please go to page '/' to view the new account!");
+        }, AccountUtils.ConnectionString);
+        
+        String token = await AccountUtils.NewToken(registrationRequest.Username);
+        return Ok(token);
     }
 
     [HttpPost]
     [Route("Login")]
     public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        IAccess access = new Access();
-        const String sql = "SELECT * FROM symmetrical_waifu.accounts WHERE Username = @LoginUsername";
-        List<Account> accounts = await access.Load<Account, dynamic>(sql, new
-        {
-            LoginUsername = loginRequest.Username
-        }, ConnectionString);
-        Account selected = accounts.First();
-        
-        // Add salt to password
-        Byte[] hash = loginRequest.Password.Concat(selected.PasswordSalt).ToArray();
-        
-        // Hash
-        var sha512 = SHA512.Create();
-        for (var i = 0; i < 5000; ++i) hash = sha512.ComputeHash(hash);
-        if (hash.SequenceEqual(selected.PasswordHash)) return Ok(selected);
-        return new UnauthorizedResult();
+        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        if (!result) return Unauthorized();
+        String token = await AccountUtils.NewToken(selected!.Username);
+        return Ok(token);
     }
 }

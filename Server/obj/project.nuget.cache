@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bufEl5le8amSvkxCkAwlWuysiCQywUcOyWheglRupT0+0ZZaiwr48bflcVG34Pkc2X6vl2h2HMGS+etaPiq7+g==",
+  "dgSpecHash": "3vy72hWQhxEZ8vK1WcwXURoAxz/EvhGJ94FrCk862ctKFZuzRijBTJg02tCqRemALBdS/W/8fKNyyQTR95Ltxg==",
   "success": true,
   "projectFilePath": "/home/roncake/RiderProjects/SymmetricalWaifu/Server/SymmetricalWaifu.Server.csproj",
   "expectedPackageFiles": [
+    "/home/roncake/.nuget/packages/blazored.localstorage/4.2.0/blazored.localstorage.4.2.0.nupkg.sha512",
     "/home/roncake/.nuget/packages/bouncycastle.netcore/1.8.5/bouncycastle.netcore.1.8.5.nupkg.sha512",
     "/home/roncake/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/home/roncake/.nuget/packages/google.protobuf/3.19.4/google.protobuf.3.19.4.nupkg.sha512",

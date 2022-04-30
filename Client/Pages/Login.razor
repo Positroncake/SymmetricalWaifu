@@ -1,6 +1,8 @@
 @page "/Login"
 @using SymmetricalWaifu.Shared
 @using System.Text
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
 @inject HttpClient HttpClient
 
 <p>Username</p>
@@ -21,6 +23,8 @@
             Password = Encoding.UTF32.GetBytes(_pwd!)
         };
         HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Login", loginRequest);
+        var token = await response.Content.ReadFromJsonAsync<String>();
+        await LocalStorage.SetItemAsync("token", token);
     }
 
 }

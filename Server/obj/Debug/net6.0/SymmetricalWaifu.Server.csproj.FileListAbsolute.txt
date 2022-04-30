@@ -67,3 +67,4 @@
 /home/roncake/RiderProjects/SymmetricalWaifu/Server/obj/Debug/net6.0/SymmetricalWaifu.Server.pdb
 /home/roncake/RiderProjects/SymmetricalWaifu/Server/obj/Debug/net6.0/SymmetricalWaifu.Server.genruntimeconfig.cache
 /home/roncake/RiderProjects/SymmetricalWaifu/Server/obj/Debug/net6.0/ref/SymmetricalWaifu.Server.dll
+/home/roncake/RiderProjects/SymmetricalWaifu/Server/bin/Debug/net6.0/Blazored.LocalStorage.dll

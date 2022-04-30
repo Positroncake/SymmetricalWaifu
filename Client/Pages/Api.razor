@@ -1,0 +1,78 @@
+@page "/Api"
+@using SymmetricalWaifu.Shared
+@using System.Text
+@inject HttpClient HttpClient
+
+<p>Username</p>
+<input @bind="_uname"/>
+<p>Password</p>
+<input @bind="_pwd" type="password"/>
+<button @onclick="RequestNewFromLogin">Generate API Token from Login details</button>
+<p>List all tokens</p>
+<button @onclick="ListTokens">List tokens</button>
+<p>Delete all tokens</p>
+<button @onclick="DeleteAllTokens">Delete all tokens</button>
+
+<br/>
+
+<p>Token</p>
+<input @bind="_token"/>
+<button @onclick="RequestNewFromKey">Generate API Token from existing token</button>
+<p>Delete token</p>
+<button @onclick="DeleteToken">Delete inputted token</button>
+
+@code {
+
+    private String? _uname, _pwd, _token;
+
+    private async void RequestNewFromLogin()
+    {
+        var loginRequest = new LoginRequest
+        {
+            Username = _uname!,
+            Password = Encoding.UTF32.GetBytes(_pwd!)
+        };
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/NewFromLoginDetails", loginRequest);
+    }
+    
+    private async void RequestNewFromKey()
+    {
+        var token = new TokenClass
+        {
+            Token = _token!,
+            Username = String.Empty
+        };
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/NewFromExistingToken", token);
+    }
+
+    private async void ListTokens()
+    {
+        var loginRequest = new LoginRequest
+        {
+            Username = _uname!,
+            Password = Encoding.UTF32.GetBytes(_pwd!)
+        };
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/ListTokens", loginRequest);
+    }
+
+    private async void DeleteToken()
+    {
+        var token = new TokenClass
+        {
+            Token = _token!,
+            Username = String.Empty
+        };
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/DeleteToken", token);
+    }
+
+    private async void DeleteAllTokens()
+    {
+        var loginRequest = new LoginRequest
+        {
+            Username = _uname!,
+            Password = Encoding.UTF32.GetBytes(_pwd!)
+        };
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/DeleteAllTokens", loginRequest);
+    }
+
+}

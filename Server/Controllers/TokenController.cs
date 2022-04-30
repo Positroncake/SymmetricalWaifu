@@ -9,44 +9,80 @@ namespace SymmetricalWaifu.Server.Controllers;
 [Route("TokenApi")]
 public class TokenController : ControllerBase
 {
-    private const String ConnectionString = Access.ConnectionString;
-    
-    [HttpGet]
+    [HttpPost]
     [Route("NewFromLoginDetails")]
     public async Task<ActionResult> NewFromLoginDetails(LoginRequest loginRequest)
     {
-        IAccess access = new Access();
-        const String sql = "SELECT * FROM symmetrical_waifu.accounts WHERE Username = @LoginUsername";
-        List<Account> accounts = await access.Load<Account, dynamic>(sql, new
-        {
-            LoginUsername = loginRequest.Username
-        }, ConnectionString);
-        Account selected = accounts.First();
-        
-        // Add salt to password
-        Byte[] hash = loginRequest.Password.Concat(selected.PasswordSalt).ToArray();
-        
-        // Hash
-        var sha512 = SHA512.Create();
-        for (var i = 0; i < 5000; ++i) hash = sha512.ComputeHash(hash);
-        if (hash.SequenceEqual(selected.PasswordHash))
-        {
-            // Generate token
-        }
-        return Ok();
+        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        if (!result) return Unauthorized();
+        String token = await AccountUtils.NewToken(selected!.Username);
+        return Ok(token);
     }
     
-    [HttpGet]
+    [HttpPost]
     [Route("NewFromExistingToken")]
-    public ActionResult NewFromExistingToken(String existingToken)
+    public async Task<ActionResult> NewFromExistingToken(TokenClass existingToken)
     {
-        return new StatusCodeResult(StatusCodes.Status501NotImplemented);
+        // Validate existing token
+        IAccess access = new Access();
+        const String sql = "SELECT * FROM tokens WHERE Token = @Token LIMIT 1";
+        List<TokenClass> results = await access.Load<TokenClass, dynamic>(sql, new
+        {
+            Token = existingToken.Token
+        }, AccountUtils.ConnectionString);
+        
+        // Validation
+        if (results.Count == 0) return Unauthorized();
+        
+        // Generate new token
+        String token = await AccountUtils.NewToken(results.First().Username);
+        return Ok(token);
     }
 
-    [NonAction]
-    private String GenToken()
+    [HttpPost]
+    [Route("ListTokens")]
+    public async Task<ActionResult> GetAllTokens(LoginRequest loginRequest)
     {
-        Span<Byte> bytes = stackalloc Byte[64];
-        RandomNumberGenerator.Fill(bytes);
+        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        if (!result) return Unauthorized();
+        
+        // Get tokens
+        IAccess access = new Access();
+        const String sql = "SELECT * FROM tokens WHERE Username = @Username";
+        List<TokenClass> tokens = await access.Load<TokenClass, dynamic>(sql, new
+        {
+            Username = selected!.Username
+        }, AccountUtils.ConnectionString);
+        return Ok(tokens);
+    }
+
+    [HttpPost]
+    [Route("DeleteToken")]
+    public async Task<ActionResult> DeleteToken(TokenClass token)
+    {
+        IAccess access = new Access();
+        const String sql = "DELETE FROM tokens WHERE Token = @Token";
+        await access.Save(sql, new
+        {
+            Token = token.Token
+        }, AccountUtils.ConnectionString);
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("DeleteAllTokens")]
+    public async Task<ActionResult> DeleteAllTokens(LoginRequest loginRequest)
+    {
+        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        if (!result) return Unauthorized();
+        
+        // Delete all tokens
+        IAccess access = new Access();
+        const String sql = "DELETE FROM tokens WHERE Username = @Username";
+        await access.Save(sql, new
+        {
+            Username = selected!.Username
+        }, AccountUtils.ConnectionString);
+        return Ok();
     }
 }

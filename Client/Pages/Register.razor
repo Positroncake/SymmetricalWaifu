@@ -2,7 +2,8 @@
 @using SymmetricalWaifu.Shared
 @using System.Text
 @using System.Security.Cryptography
-@using System.Diagnostics
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
 @inject HttpClient HttpClient
 
 <p>Username</p>
@@ -40,7 +41,7 @@
     private String? _uname, _pwd, _dname, _email;
     private Boolean _showSalting, _showSending, _showSent, _showError, _showConnectionFailure;
     private static Byte[] _hash = null!;
-    private static SHA512 _sha512 = SHA512.Create();
+    private static readonly SHA512 Sha512 = SHA512.Create();
 
     private async void SendToServer()
     {
@@ -68,8 +69,14 @@
             Email = _email
         };
 
-        HttpResponseMessage result = await HttpClient.PostAsJsonAsync("AccountApi/Register", registrationRequest);
-        if (result.IsSuccessStatusCode) _showSent = true;
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Register", registrationRequest);
+        if (response.IsSuccessStatusCode)
+        {
+            _showSent = true;
+            var token = await response.Content.ReadFromJsonAsync<String>();
+            Console.WriteLine(token);
+            await LocalStorage.SetItemAsync("token", token);
+        }
         else _showConnectionFailure = true;
         StateHasChanged();
     }
@@ -111,7 +118,7 @@
         public void Compute()
         {
             if (_disposed) throw new ObjectDisposedException(nameof(Resource));
-            for (var i = 0; i < 5000; ++i) _hash = _sha512.ComputeHash(_hash);
+            for (var i = 0; i < 5000; ++i) _hash = Sha512.ComputeHash(_hash);
         }
     }
 

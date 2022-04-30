@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ep+rTwpCut54Yb6oa9k08GYkZwsV6vXhl+r81v8cWdU=",
+  "Hash": "7/PaAi1IBM76e1Sr61Ojo0U6kyzYAPVj0sw8KMwgT6M=",
   "Source": "SymmetricalWaifu.Server",
   "BasePath": "_content/SymmetricalWaifu.Server",
   "Mode": "Default",
@@ -61,6 +61,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/roncake/.nuget/packages/microsoft.aspnetcore.components.webassembly/6.0.4/build/net6.0/blazor.webassembly.js"
+    },
+    {
+      "Identity": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/bin/Debug/net6.0/wwwroot/_framework/Blazored.LocalStorage.dll",
+      "SourceId": "SymmetricalWaifu.Client",
+      "SourceType": "Project",
+      "ContentRoot": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/bin/Debug/net6.0/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "_framework/Blazored.LocalStorage.dll",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "BlazorWebAssemblyResource",
+      "AssetTraitValue": "runtime",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "/home/roncake/.nuget/packages/blazored.localstorage/4.2.0/lib/net6.0/Blazored.LocalStorage.dll"
     },
     {
       "Identity": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/bin/Debug/net6.0/wwwroot/_framework/dotnet.6.0.2.4qi6ota9m2.js",
@@ -4668,6 +4685,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/bin/Debug/net6.0/wwwroot/_framework/System.Net.Security.dll"
+    },
+    {
+      "Identity": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/obj/Debug/net6.0/build-gz/f9JFdkv7.gz",
+      "SourceId": "SymmetricalWaifu.Client",
+      "SourceType": "Project",
+      "ContentRoot": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/bin/Debug/net6.0/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "_framework/Blazored.LocalStorage.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/bin/Debug/net6.0/wwwroot/_framework/Blazored.LocalStorage.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/bin/Debug/net6.0/wwwroot/_framework/Blazored.LocalStorage.dll"
     },
     {
       "Identity": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/obj/Debug/net6.0/build-gz/FiBPXG8g.gz",

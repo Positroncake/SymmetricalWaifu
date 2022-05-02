@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using DatabaseAccess;
 using Microsoft.AspNetCore.Mvc;
 using SymmetricalWaifu.Shared;
@@ -11,39 +10,34 @@ public class TokenController : ControllerBase
 {
     [HttpPost]
     [Route("NewFromLoginDetails")]
-    public async Task<ActionResult> NewFromLoginDetails(LoginRequest loginRequest)
+    public async Task<ActionResult> NewFromLoginDetails([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
-        String token = await AccountUtils.NewToken(selected!.Username);
+        String token = await Utils.NewToken(selected!.Username);
         return Ok(token);
     }
     
     [HttpPost]
     [Route("NewFromExistingToken")]
-    public async Task<ActionResult> NewFromExistingToken(TokenClass existingToken)
+    public async Task<ActionResult> NewFromExistingToken([FromBody] TokenClass existingToken)
     {
         // Validate existing token
-        IAccess access = new Access();
-        const String sql = "SELECT * FROM tokens WHERE Token = @Token LIMIT 1";
-        List<TokenClass> results = await access.Load<TokenClass, dynamic>(sql, new
-        {
-            Token = existingToken.Token
-        }, AccountUtils.ConnectionString);
+        (Boolean exists, String username) = await Utils.GetUnameFromToken(existingToken.Token);
         
         // Validation
-        if (results.Count == 0) return Unauthorized();
+        if (exists is not true) return Unauthorized();
         
         // Generate new token
-        String token = await AccountUtils.NewToken(results.First().Username);
+        String token = await Utils.NewToken(username);
         return Ok(token);
     }
 
     [HttpPost]
     [Route("ListTokens")]
-    public async Task<ActionResult> GetAllTokens(LoginRequest loginRequest)
+    public async Task<ActionResult> GetAllTokens([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         
         // Get tokens
@@ -52,28 +46,28 @@ public class TokenController : ControllerBase
         List<TokenClass> tokens = await access.Load<TokenClass, dynamic>(sql, new
         {
             Username = selected!.Username
-        }, AccountUtils.ConnectionString);
+        }, Utils.ConnectionString);
         return Ok(tokens);
     }
 
     [HttpPost]
     [Route("DeleteToken")]
-    public async Task<ActionResult> DeleteToken(TokenClass token)
+    public async Task<ActionResult> DeleteToken([FromBody] TokenClass token)
     {
         IAccess access = new Access();
-        const String sql = "DELETE FROM tokens WHERE Token = @Token";
+        const String sql = "DELETE FROM tokens WHERE Token = @Token LIMIT 1";
         await access.Save(sql, new
         {
             Token = token.Token
-        }, AccountUtils.ConnectionString);
+        }, Utils.ConnectionString);
         return Ok();
     }
 
     [HttpPost]
     [Route("DeleteAllTokens")]
-    public async Task<ActionResult> DeleteAllTokens(LoginRequest loginRequest)
+    public async Task<ActionResult> DeleteAllTokens([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         
         // Delete all tokens
@@ -82,7 +76,7 @@ public class TokenController : ControllerBase
         await access.Save(sql, new
         {
             Username = selected!.Username
-        }, AccountUtils.ConnectionString);
+        }, Utils.ConnectionString);
         return Ok();
     }
 }

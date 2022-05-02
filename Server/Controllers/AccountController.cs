@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using DatabaseAccess;
 using Microsoft.AspNetCore.Mvc;
 using SymmetricalWaifu.Shared;
@@ -27,9 +26,9 @@ public class AccountController : ControllerBase
             Joined = System.DateTime.UtcNow,
             Submissions = 0,
             WinningSubmissions = 0
-        }, AccountUtils.ConnectionString);
-        
-        String token = await AccountUtils.NewToken(registrationRequest.Username);
+        }, Utils.ConnectionString);
+
+        String token = await Utils.NewToken(registrationRequest.Username);
         return Ok(token);
     }
 
@@ -37,9 +36,9 @@ public class AccountController : ControllerBase
     [Route("Login")]
     public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await AccountUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
-        String token = await AccountUtils.NewToken(selected!.Username);
+        String token = await Utils.NewToken(selected!.Username);
         return Ok(token);
     }
 }

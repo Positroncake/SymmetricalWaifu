@@ -272,5 +272,9 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Waifus" />
+  </ItemGroup>
+
 
 </Project>

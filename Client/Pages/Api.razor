@@ -17,7 +17,7 @@
 
 <p>Token</p>
 <input @bind="_token"/>
-<button @onclick="RequestNewFromKey">Generate API Token from existing token</button>
+<button @onclick="RequestNewFromExisting">Generate API Token from existing token</button>
 <p>Delete token</p>
 <button @onclick="DeleteToken">Delete inputted token</button>
 
@@ -35,13 +35,9 @@
         HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/NewFromLoginDetails", loginRequest);
     }
     
-    private async void RequestNewFromKey()
+    private async void RequestNewFromExisting()
     {
-        var token = new TokenClass
-        {
-            Token = _token!,
-            Username = String.Empty
-        };
+        String token = _token!.ToLowerInvariant();
         HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/NewFromExistingToken", token);
     }
 
@@ -57,11 +53,7 @@
 
     private async void DeleteToken()
     {
-        var token = new TokenClass
-        {
-            Token = _token!,
-            Username = String.Empty
-        };
+        String token = _token!.ToLowerInvariant();
         HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/DeleteToken", token);
     }
 

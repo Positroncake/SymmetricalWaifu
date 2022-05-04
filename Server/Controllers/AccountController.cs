@@ -16,7 +16,7 @@ public class AccountController : ControllerBase
         // Todo: Check if username is taken.
         const String sql =
             "INSERT INTO accounts (Username, PasswordHash, PasswordSalt, DisplayName, Email, Joined, Submissions, WinningSubmissions) VALUES (@Username, @PasswordHash, @PasswordSalt, @DisplayName, @Email, @Joined, @Submissions, @WinningSubmissions)";
-        await access.Save(sql, new
+        await access.Execute(sql, new
         {
             Username = registrationRequest.Username,
             PasswordHash = registrationRequest.PasswordHash,
@@ -26,9 +26,9 @@ public class AccountController : ControllerBase
             Joined = System.DateTime.UtcNow,
             Submissions = 0,
             WinningSubmissions = 0
-        }, Utils.ConnectionString);
+        }, UserUtils.ConnectionString);
 
-        String token = await Utils.NewToken(registrationRequest.Username);
+        String token = await UserUtils.NewToken(registrationRequest.Username);
         return Ok(token);
     }
 
@@ -36,9 +36,9 @@ public class AccountController : ControllerBase
     [Route("Login")]
     public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
+        (Boolean result, Account? selected) = await UserUtils.Login(loginRequest);
         if (!result) return Unauthorized();
-        String token = await Utils.NewToken(selected!.Username);
+        String token = await UserUtils.NewToken(selected!.Username);
         return Ok(token);
     }
 }

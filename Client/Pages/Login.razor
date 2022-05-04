@@ -2,6 +2,7 @@
 @using SymmetricalWaifu.Shared
 @using System.Text
 @using Blazored.LocalStorage
+@using System.Net
 @inject ILocalStorageService LocalStorage
 @inject HttpClient HttpClient
 
@@ -11,9 +12,15 @@
 <input @bind="_pwd" type="password"/>
 <button @onclick="SendToServer">Login</button>
 
+@if (_showWrongPassword)
+{
+    <p>Wrong password.</p>
+}
+
 @code {
 
     private String? _uname, _pwd;
+    private Boolean _showWrongPassword;
 
     private async void SendToServer()
     {
@@ -22,9 +29,25 @@
             Username = _uname!,
             Password = Encoding.UTF32.GetBytes(_pwd!)
         };
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Login", loginRequest);
-        var token = await response.Content.ReadFromJsonAsync<String>();
-        await LocalStorage.SetItemAsync("token", token);
+        HttpResponseMessage response = null!;
+        for (var i = 0; i < 5; ++i)
+        {
+            response = await HttpClient.PostAsJsonAsync("AccountApi/Login", loginRequest);
+            if (response.StatusCode is not HttpStatusCode.InternalServerError) break;
+        }
+        if (response.StatusCode is HttpStatusCode.Unauthorized)
+        {
+            _showWrongPassword = false;
+            await Task.Delay(250);
+            _showWrongPassword = true;
+            await Task.Delay(250);
+            _showWrongPassword = false;
+            await Task.Delay(250);
+            _showWrongPassword = true;
+            return;
+        }
+        String token = (await response.Content.ReadAsStringAsync()).ToLowerInvariant();
+        await LocalStorage.SetItemAsStringAsync("token", token);
     }
 
 }

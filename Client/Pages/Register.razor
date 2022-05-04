@@ -3,6 +3,7 @@
 @using System.Text
 @using System.Security.Cryptography
 @using Blazored.LocalStorage
+@using System.Net
 @inject ILocalStorageService LocalStorage
 @inject HttpClient HttpClient
 
@@ -53,7 +54,7 @@
         }
         
         _showSalting = true;
-        IEnumerable<Byte> pwd = Encoding.UTF32.GetBytes(_pwd);
+        Byte[] pwd = Encoding.UTF32.GetBytes(_pwd);
         Byte[] salt = GenerateSalt();
         _hash = pwd.Concat(salt).ToArray();
         await ComputeSaltedHash();
@@ -69,15 +70,18 @@
             Email = _email
         };
 
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Register", registrationRequest);
-        if (response.IsSuccessStatusCode)
+        for (var i = 0; i < 5; ++i)
         {
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Register", registrationRequest);
+            if (!response.IsSuccessStatusCode) continue;
             _showSent = true;
-            var token = await response.Content.ReadFromJsonAsync<String>();
-            Console.WriteLine(token);
-            await LocalStorage.SetItemAsync("token", token);
+            String token = (await response.Content.ReadAsStringAsync()).ToLowerInvariant();
+            await LocalStorage.SetItemAsStringAsync("token", token);
+            _showSent = true;
+            StateHasChanged();
+            break;
         }
-        else _showConnectionFailure = true;
+        _showConnectionFailure = true;
         StateHasChanged();
     }
 

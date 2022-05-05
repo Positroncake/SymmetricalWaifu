@@ -12,9 +12,9 @@ public class TokenController : ControllerBase
     [Route("NewFromLoginDetails")]
     public async Task<ActionResult> NewFromLoginDetails([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await UserUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
-        String token = await UserUtils.NewToken(selected!.Username);
+        String token = await Utils.NewToken(selected!.Username);
         return Ok(token);
     }
     
@@ -23,13 +23,13 @@ public class TokenController : ControllerBase
     public async Task<ActionResult> NewFromExistingToken([FromBody] String oldToken)
     {
         // Validate existing token
-        (Boolean exists, String username) = await UserUtils.GetUnameFromToken(oldToken);
+        (Boolean exists, String username) = await Utils.GetUnameFromToken(oldToken);
         
         // Validation
         if (exists is not true) return Unauthorized();
         
         // Generate new token
-        String newToken = await UserUtils.NewToken(username);
+        String newToken = await Utils.NewToken(username);
         return Ok(newToken);
     }
 
@@ -37,7 +37,7 @@ public class TokenController : ControllerBase
     [Route("ListTokens")]
     public async Task<ActionResult> GetAllTokens([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await UserUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         
         // Get tokens
@@ -46,7 +46,7 @@ public class TokenController : ControllerBase
         List<TokenClass> tokens = await access.Query<TokenClass, dynamic>(sql, new
         {
             Username = selected!.Username
-        }, UserUtils.ConnectionString);
+        }, Utils.ConnectionString);
         return Ok(tokens);
     }
 
@@ -59,7 +59,7 @@ public class TokenController : ControllerBase
         await access.Execute(sql, new
         {
             Token = token
-        }, UserUtils.ConnectionString);
+        }, Utils.ConnectionString);
         return Ok();
     }
 
@@ -67,7 +67,7 @@ public class TokenController : ControllerBase
     [Route("DeleteAllTokens")]
     public async Task<ActionResult> DeleteAllTokens([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await UserUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         
         // Delete all tokens
@@ -76,7 +76,7 @@ public class TokenController : ControllerBase
         await access.Execute(sql, new
         {
             Username = selected!.Username
-        }, UserUtils.ConnectionString);
+        }, Utils.ConnectionString);
         return Ok();
     }
 }

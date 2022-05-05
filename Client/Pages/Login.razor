@@ -37,12 +37,6 @@
         }
         if (response.StatusCode is HttpStatusCode.Unauthorized)
         {
-            _showWrongPassword = false;
-            await Task.Delay(250);
-            _showWrongPassword = true;
-            await Task.Delay(250);
-            _showWrongPassword = false;
-            await Task.Delay(250);
             _showWrongPassword = true;
             return;
         }

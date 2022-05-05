@@ -4,9 +4,9 @@ using SymmetricalWaifu.Shared;
 
 namespace SymmetricalWaifu.Server;
 
-public static class UserUtils
+public static class Utils
 {
-    public const String ConnectionString = "Server=127.0.0.1;Port=3306;Database=symmetrical_waifu;Uid=waifudatabase;Pwd=JUJqzeFfrUozFV5Wpxuxh3mSwXzrsPq7";
+    public const String ConnectionString = "Server=127.0.0.1;Port=3306;Database=symmetrical_waifu;Uid=waifudatabase;Pwd=SEO5tImFglekXDrDbzeTO4VpN7ki7jFX";
 
     public static async Task<(Boolean, Account?)> Login(LoginRequest loginRequest)
     {

@@ -70,9 +70,10 @@
             Email = _email
         };
 
+        HttpResponseMessage response = null!;
         for (var i = 0; i < 5; ++i)
         {
-            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Register", registrationRequest);
+            response = await HttpClient.PostAsJsonAsync("AccountApi/Register", registrationRequest);
             if (!response.IsSuccessStatusCode) continue;
             _showSent = true;
             String token = (await response.Content.ReadAsStringAsync()).ToLowerInvariant();
@@ -81,7 +82,7 @@
             StateHasChanged();
             break;
         }
-        _showConnectionFailure = true;
+        if (response.IsSuccessStatusCode is false) _showConnectionFailure = true;
         StateHasChanged();
     }
 

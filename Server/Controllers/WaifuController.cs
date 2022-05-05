@@ -9,14 +9,14 @@ public class WaifuController : ControllerBase
 {
     [HttpPost]
     [Route("AllocateWaifu")]
-    public async Task<ActionResult> AllocateWaifu(String token)
+    public async Task<ActionResult> AllocateWaifu([FromBody] String token)
     {
         // Check if token is valid and get username if so
-        (Boolean exists, String username) = await UserUtils.GetUnameFromToken(token);
+        (Boolean exists, String username) = await Utils.GetUnameFromToken(token);
         if (exists is not true) return Unauthorized();
 
         // Get directory or create one
-        (Boolean create, String directory) = await UserUtils.CreateOrGetDirFromUname(username);
+        (Boolean create, String directory) = await Utils.CreateOrGetDirFromUname(username);
         if (create) Directory.CreateDirectory($"Waifus/{directory}");
 
         // Return info to user
@@ -30,10 +30,10 @@ public class WaifuController : ControllerBase
     
     [HttpPost]
     [Route("UploadWaifu")]
-    public async Task<ActionResult> UploadWaifu(FilePacket file)
+    public async Task<ActionResult> UploadWaifu([FromBody] FilePacket file)
     {
         // Init
-        if (Directory.Exists(file.Directory) is false) return Unauthorized();
+        if (Directory.Exists($"Waifus/{file.Directory}") is false) return Unauthorized();
         String path = $"Waifus/{file.Directory}/{file.Name}.{file.Extension}";
         
         // Write bytes

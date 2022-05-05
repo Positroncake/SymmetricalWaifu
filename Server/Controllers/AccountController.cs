@@ -26,9 +26,9 @@ public class AccountController : ControllerBase
             Joined = System.DateTime.UtcNow,
             Submissions = 0,
             WinningSubmissions = 0
-        }, UserUtils.ConnectionString);
+        }, Utils.ConnectionString);
 
-        String token = await UserUtils.NewToken(registrationRequest.Username);
+        String token = await Utils.NewToken(registrationRequest.Username);
         return Ok(token);
     }
 
@@ -36,9 +36,9 @@ public class AccountController : ControllerBase
     [Route("Login")]
     public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        (Boolean result, Account? selected) = await UserUtils.Login(loginRequest);
+        (Boolean result, Account? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
-        String token = await UserUtils.NewToken(selected!.Username);
+        String token = await Utils.NewToken(selected!.Username);
         return Ok(token);
     }
 }

@@ -1,0 +1,89 @@
+@page "/Upload"
+@using SymmetricalWaifu.Shared
+@using System.Net
+@inject HttpClient HttpClient
+
+<h3>Upload</h3>
+
+<input @bind="_token"/>
+@if (_token.Length == 128)
+{
+	<InputFile OnChange="FileSelected"/>
+}
+@if (_showButton)
+{
+	<button @onclick="Submit">Submit</button>
+}
+@if (_showProgressBar)
+{
+	<progress value="@_read" max="@_file.Size"></progress>
+}
+@if (_showSizeTooLarge)
+{
+	<p>File is too large! Max: 10 MiB (10485760 bytes)</p>
+}
+@if (_showInvalidToken)
+{
+	<p>Invalid token. Please try signing in again.</p>
+}
+
+@code {
+
+	IBrowserFile _file = null!;
+	private String _token = String.Empty;
+	private Int64 _read;
+	private Boolean _showButton, _showProgressBar, _showSizeTooLarge, _showInvalidToken;
+
+	private void FileSelected(InputFileChangeEventArgs e)
+	{
+		_file = e.File;
+		_showButton = true;
+	}
+
+	private async void Submit()
+	{
+	// Pre-validation => Check file type
+		// Magic
+
+	// Validation
+		if (_file.Size > 52428800)
+		{
+			_showSizeTooLarge = true;
+			return;
+		}
+		String directory, name, extension;
+		HttpResponseMessage response = await HttpClient.PostAsJsonAsync("WaifuApi/AllocateWaifu", _token);
+		if (response.StatusCode == HttpStatusCode.Unauthorized)
+		{
+			_showInvalidToken = true;
+			StateHasChanged();
+			return;
+		}
+		_showProgressBar = true;
+		StateHasChanged();
+
+	// Pre-upload
+		var filePath = await response.Content.ReadFromJsonAsync<FilePath>();
+		directory = filePath!.Directory;
+		name = filePath.NameWithoutExtension;
+		extension = "mp4"; //Todo: Implement later, battery low ;-;
+
+	// Upload
+		Stream stream = _file.OpenReadStream(52428800);
+		while (_read != _file.Size)
+		{
+			Byte[] bytes = _read + 1048576 >= _file.Size ? new Byte[_file.Size - _read] : new Byte[1048576];
+			_read += await stream.ReadAsync(bytes);
+			var file = new FilePacket
+			{
+				Directory = directory,
+				Name = name,
+				Extension = extension,
+				Contents = bytes
+			};
+			await HttpClient.PostAsJsonAsync("WaifuApi/UploadWaifu", file);
+			StateHasChanged();
+		}
+	}
+
+}

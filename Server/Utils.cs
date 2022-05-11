@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using System.Text;
 using DatabaseAccess;
 using SymmetricalWaifu.Shared;
 
@@ -13,7 +14,7 @@ public static class Utils
         // Get account from database if exists
         IAccess access = new Access();
         const String sql = "SELECT * FROM accounts WHERE Username = @LoginUsername LIMIT 1";
-        List<Account> accounts = await access.Query<Account, dynamic>(sql, new
+        List<Account> accounts = await access.QueryAsync<Account, dynamic>(sql, new
         {
             LoginUsername = loginRequest.Username
         }, ConnectionString);
@@ -39,7 +40,7 @@ public static class Utils
         IAccess access = new Access();
         String token = GenToken();
         const String query = "INSERT INTO tokens (Token, Username) VALUES (@Token, @Username)";
-        await access.Execute(query, new
+        await access.ExecuteAsync(query, new
         {
             Token = token,
             Username = username
@@ -52,7 +53,7 @@ public static class Utils
         // Get token from database if exists
         IAccess access = new Access();
         const String sql = "SELECT * FROM tokens WHERE Token = @Token LIMIT 1";
-        List<TokenClass> results = await access.Query<TokenClass, dynamic>(sql, new
+        List<TokenClass> results = await access.QueryAsync<TokenClass, dynamic>(sql, new
         {
             Token = token
         }, ConnectionString);
@@ -65,7 +66,7 @@ public static class Utils
     {
         IAccess access = new Access();
         const String sql = "SELECT * FROM directories WHERE Username = @Username LIMIT 1";
-        List<DirectoryClass> directories = await access.Query<DirectoryClass, dynamic>(sql, new
+        List<DirectoryClass> directories = await access.QueryAsync<DirectoryClass, dynamic>(sql, new
         {
             Username = username
         }, ConnectionString);
@@ -76,7 +77,7 @@ public static class Utils
         // If user does not exist, create and return
         String directory = GenDir();
         const String add = "INSERT INTO directories (Username, Dir) VALUES (@Username, @Dir)";
-        await access.Execute(add, new
+        await access.ExecuteAsync(add, new
         {
             Username = username,
             Dir = directory
@@ -101,4 +102,6 @@ public static class Utils
         String result = Convert.ToHexString(bytes);
         return result.ToLowerInvariant();
     }
+
+    public static String GenId() => Guid.NewGuid().ToString("N");
 }

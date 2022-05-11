@@ -9,6 +9,7 @@
       "SymmetricalWaifu.Server/1.0.0": {
         "dependencies": {
           "DatabaseAccess": "1.0.0",
+          "File.TypeChecker": "3.0.0",
           "Microsoft.AspNetCore.Components.WebAssembly.Server": "6.0.4",
           "SymmetricalWaifu.Client": "1.0.0",
           "SymmetricalWaifu.Shared": "1.0.0"
@@ -41,6 +42,18 @@
           "lib/net5.0/Dapper.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.0.123.33578"
+          }
+        }
+      },
+      "File.TypeChecker/3.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/FileTypeChecker.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netstandard2.0/FileTypeChecker.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
           }
         }
       },
@@ -491,6 +504,13 @@
       "sha512": "sha512-RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
+    },
+    "File.TypeChecker/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FrSAELo/9G9sG6XV8yOLSeHAjwGuB59ahm0M41YJC29IsoObdhUDzFrHXB5dDBc5qmV2thxh4newBea7DbDPFw==",
+      "path": "file.typechecker/3.0.0",
+      "hashPath": "file.typechecker.3.0.0.nupkg.sha512"
     },
     "Google.Protobuf/3.19.4": {
       "type": "package",

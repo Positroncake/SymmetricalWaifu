@@ -8,82 +8,115 @@
 <input @bind="_token"/>
 @if (_token.Length == 128)
 {
-	<InputFile OnChange="FileSelected"/>
+    <InputFile OnChange="FileSelected"/>
+    <form>
+        <div class="mb-3">
+            <label>Image Title</label>
+            <input @bind="_title"/>
+        </div>
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea @bind="_desc"></textarea>
+        </div>
+        <div class="mb-3">
+            <label>Source</label>
+            <input @bind="_source"/>
+        </div>
+    </form>
 }
 @if (_showButton)
 {
-	<button @onclick="Submit">Submit</button>
+    <button @onclick="Submit">Submit</button>
 }
 @if (_showProgressBar)
 {
-	<progress value="@_read" max="@_file.Size"></progress>
+    <br/>
+    <progress value="@_read" max="@_file.Size"></progress>
+}
+@if (_showComplete)
+{
+    <p>Submitted!</p>
 }
 @if (_showSizeTooLarge)
 {
-	<p>File is too large! Max: 10 MiB (10485760 bytes)</p>
+    <p>File is too large! Max: 12 MiB (12582912 bytes)</p>
 }
 @if (_showInvalidToken)
 {
-	<p>Invalid token. Please try signing in again.</p>
+    <p>Invalid token. Please try signing in again.</p>
 }
 
 @code {
 
-	IBrowserFile _file = null!;
-	private String _token = String.Empty;
-	private Int64 _read;
-	private Boolean _showButton, _showProgressBar, _showSizeTooLarge, _showInvalidToken;
+    IBrowserFile _file = null!;
+    private String _token = String.Empty;
+    private Int64 _read;
+    private Boolean _showButton, _showProgressBar, _showSizeTooLarge, _showInvalidToken, _showComplete;
+    private String _title = String.Empty;
+    private String _desc = String.Empty;
+    private String _source = String.Empty;
 
-	private void FileSelected(InputFileChangeEventArgs e)
-	{
-		_file = e.File;
-		_showButton = true;
-	}
+    private void FileSelected(InputFileChangeEventArgs e)
+    {
+        _file = e.File;
+        _showButton = true;
+    }
 
-	private async void Submit()
-	{
-	// Pre-validation => Check file type
-		// Magic
+    private async void Submit()
+    {
+    // Validation
+        if (_file.Size > 12582912)
+        {
+            _showSizeTooLarge = true;
+            return;
+        }
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("WaifuApi/AllocateWaifu", _token);
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            _showInvalidToken = true;
+            StateHasChanged();
+            return;
+        }
+        _showProgressBar = true;
+        StateHasChanged();
 
-	// Validation
-		if (_file.Size > 52428800)
-		{
-			_showSizeTooLarge = true;
-			return;
-		}
-		String directory, name, extension;
-		HttpResponseMessage response = await HttpClient.PostAsJsonAsync("WaifuApi/AllocateWaifu", _token);
-		if (response.StatusCode == HttpStatusCode.Unauthorized)
-		{
-			_showInvalidToken = true;
-			StateHasChanged();
-			return;
-		}
-		_showProgressBar = true;
-		StateHasChanged();
+    // Pre-upload
+        var filePath = await response.Content.ReadFromJsonAsync<WaifuAllocation>();
+        String directory = filePath!.Directory;
+        String name = filePath.NameWithoutExtension;
+        String extension = Path.GetExtension(_file.Name);
 
-	// Pre-upload
-		var filePath = await response.Content.ReadFromJsonAsync<FilePath>();
-		directory = filePath!.Directory;
-		name = filePath.NameWithoutExtension;
-		extension = "mp4"; //Todo: Implement later, battery low ;-;
+    // Upload
+        Stream stream = _file.OpenReadStream(12582912);
+        while (_read != _file.Size)
+        {
+            Byte[] bytes = _read + 1048576 >= _file.Size ? new Byte[_file.Size - _read] : new Byte[1048576];
+            _read += await stream.ReadAsync(bytes);
+            var file = new WaifuDataTransfer
+            {
+                Directory = directory,
+                Name = name,
+                Extension = extension,
+                Contents = bytes
+            };
+            await HttpClient.PostAsJsonAsync("WaifuApi/UploadWaifu", file);
+            StateHasChanged();
+        }
 
-	// Upload
-		Stream stream = _file.OpenReadStream(52428800);
-		while (_read != _file.Size)
-		{
-			Byte[] bytes = _read + 1048576 >= _file.Size ? new Byte[_file.Size - _read] : new Byte[1048576];
-			_read += await stream.ReadAsync(bytes);
-			var file = new FilePacket
-			{
-				Directory = directory,
-				Name = name,
-				Extension = extension,
-				Contents = bytes
-			};
-			await HttpClient.PostAsJsonAsync("WaifuApi/UploadWaifu", file);
-			StateHasChanged();
-		}
-	}
+    // Submit
+        var waifu = new WaifuSubmission
+        {
+            Directory = directory,
+            Name = name,
+            Extension = extension,
+            Title = _title,
+            Description = _desc,
+            Token = _token,
+            Source = _source
+        };
+        await HttpClient.PostAsJsonAsync("WaifuApi/SubmitWaifu", waifu);
+        _showComplete = true;
+        StateHasChanged();
+    }
 
 }

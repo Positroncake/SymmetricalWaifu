@@ -43,7 +43,7 @@ public class TokenController : ControllerBase
         // Get tokens
         IAccess access = new Access();
         const String sql = "SELECT * FROM tokens WHERE Username = @Username";
-        List<TokenClass> tokens = await access.Query<TokenClass, dynamic>(sql, new
+        List<TokenClass> tokens = await access.QueryAsync<TokenClass, dynamic>(sql, new
         {
             Username = selected!.Username
         }, Utils.ConnectionString);
@@ -56,7 +56,7 @@ public class TokenController : ControllerBase
     {
         IAccess access = new Access();
         const String sql = "DELETE FROM tokens WHERE Token = @Token LIMIT 1";
-        await access.Execute(sql, new
+        await access.ExecuteAsync(sql, new
         {
             Token = token
         }, Utils.ConnectionString);
@@ -73,7 +73,7 @@ public class TokenController : ControllerBase
         // Delete all tokens
         IAccess access = new Access();
         const String sql = "DELETE FROM tokens WHERE Username = @Username";
-        await access.Execute(sql, new
+        await access.ExecuteAsync(sql, new
         {
             Username = selected!.Username
         }, Utils.ConnectionString);

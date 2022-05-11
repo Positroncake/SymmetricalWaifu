@@ -210,6 +210,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "File.TypeChecker": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.AspNetCore.Components.WebAssembly.Server": {
               "target": "Package",
               "version": "[6.0.4, )"

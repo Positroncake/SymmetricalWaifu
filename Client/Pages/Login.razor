@@ -29,13 +29,9 @@
             Username = _uname!,
             Password = Encoding.UTF32.GetBytes(_pwd!)
         };
-        HttpResponseMessage response = null!;
-        for (var i = 0; i < 5; ++i)
-        {
-            response = await HttpClient.PostAsJsonAsync("AccountApi/Login", loginRequest);
-            if (response.StatusCode is not HttpStatusCode.InternalServerError) break;
-        }
-        if (response.StatusCode is HttpStatusCode.Unauthorized)
+        
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Login", loginRequest);
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
             _showWrongPassword = true;
             return;

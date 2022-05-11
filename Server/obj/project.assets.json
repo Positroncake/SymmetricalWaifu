@@ -32,6 +32,17 @@
           "lib/net5.0/Dapper.dll": {}
         }
       },
+      "File.TypeChecker/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/FileTypeChecker.Common.dll": {},
+          "lib/netstandard2.0/FileTypeChecker.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FileTypeChecker.Common.dll": {},
+          "lib/netstandard2.0/FileTypeChecker.dll": {}
+        }
+      },
       "Google.Protobuf/3.19.4": {
         "type": "package",
         "compile": {
@@ -779,6 +790,21 @@
         "lib/net5.0/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "File.TypeChecker/3.0.0": {
+      "sha512": "FrSAELo/9G9sG6XV8yOLSeHAjwGuB59ahm0M41YJC29IsoObdhUDzFrHXB5dDBc5qmV2thxh4newBea7DbDPFw==",
+      "type": "package",
+      "path": "file.typechecker/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "file.typechecker.3.0.0.nupkg.sha512",
+        "file.typechecker.nuspec",
+        "lib/netstandard2.0/FileTypeChecker.Common.dll",
+        "lib/netstandard2.0/FileTypeChecker.Common.pdb",
+        "lib/netstandard2.0/FileTypeChecker.dll",
+        "lib/netstandard2.0/FileTypeChecker.pdb"
       ]
     },
     "Google.Protobuf/3.19.4": {
@@ -1974,6 +2000,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "DatabaseAccess >= 1.0.0",
+      "File.TypeChecker >= 3.0.0",
       "Microsoft.AspNetCore.Components.WebAssembly.Server >= 6.0.4",
       "SymmetricalWaifu.Client >= 1.0.0",
       "SymmetricalWaifu.Shared >= 1.0.0"
@@ -2026,6 +2053,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "File.TypeChecker": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
           "Microsoft.AspNetCore.Components.WebAssembly.Server": {
             "target": "Package",
             "version": "[6.0.4, )"

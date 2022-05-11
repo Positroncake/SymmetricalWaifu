@@ -1,0 +1,24 @@
+@page "/List"
+@using SymmetricalWaifu.Shared
+@inject HttpClient HttpClient
+
+<h3>List</h3>
+
+@if (_waifus is not null)
+{
+    foreach (WaifuObject waifu in _waifus)
+    {
+        <p>@waifu.Id @waifu.ImageTitie @waifu.Uploader @waifu.Votes</p>
+    }
+}
+
+@code {
+
+    List<WaifuObject>? _waifus;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _waifus = await HttpClient.GetFromJsonAsync<List<WaifuObject>>("WaifuApi/GetAllWaifus");
+    }
+
+}

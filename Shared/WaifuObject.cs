@@ -2,12 +2,12 @@ namespace SymmetricalWaifu.Shared;
 
 public class WaifuObject
 {
-    public String Id { get; set; } = String.Empty;
-    public String ImageTitie { get; set; } = String.Empty;
-    public String ImageDescription { get; set; } = String.Empty;
-    public String ImagePath { get; set; } = String.Empty;
-    public String Uploader { get; set; } = String.Empty;
+    public string Id { get; set; } = string.Empty;
+    public string ImageTitle { get; set; } = string.Empty;
+    public string ImageDescription { get; set; } = string.Empty;
+    public string ImagePath { get; set; } = string.Empty;
+    public string Uploader { get; set; } = string.Empty;
     public DateTime UploadDatetime { get; set; }
-    public Int32 Votes { get; set; }
-    public String Origin { get; set; } = String.Empty;
+    public int Votes { get; set; }
+    public string Origin { get; set; } = string.Empty;
 }

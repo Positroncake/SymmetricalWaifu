@@ -3,7 +3,6 @@
 @using System.Text
 @using System.Security.Cryptography
 @using Blazored.LocalStorage
-@using System.Net
 @inject ILocalStorageService LocalStorage
 @inject HttpClient HttpClient
 
@@ -32,32 +31,38 @@
 {
     <p>Error: One or more fields are empty.</p>
 }
-@if (_showConnectionFailure)
+@if (_showDatabaseConnectionError)
 {
-    <p>Error: Connection with server failed.</p>
+    <p>Error: Server could not connect with database. Please try again.</p>
 }
 
 @code {
 
-    private String? _uname, _pwd, _dname, _email;
-    private Boolean _showSalting, _showSending, _showComplete, _showError, _showConnectionFailure;
-    private static Byte[] _hash = null!;
+    private string? _uname, _pwd, _dname, _email;
+    private bool _showSalting, _showSending, _showComplete, _showError, _showDatabaseConnectionError;
+    private static byte[] _hash = null!;
     private static readonly SHA512 Sha512 = SHA512.Create();
 
     private async void SendToServer()
     {
-        if (String.IsNullOrEmpty(_email)) _email = "";
-        if (String.IsNullOrEmpty(_uname) || String.IsNullOrEmpty(_pwd) || String.IsNullOrEmpty(_dname))
+        _showSalting = false;
+        _showSending = false;
+        _showComplete = false;
+        _showError = false;
+        _showDatabaseConnectionError = false;
+        
+        if (string.IsNullOrEmpty(_email)) _email = "";
+        if (string.IsNullOrEmpty(_uname) || string.IsNullOrEmpty(_pwd) || string.IsNullOrEmpty(_dname))
         {
             _showError = true;
             return;
         }
 
         _showSalting = true;
-        Byte[] pwd = Encoding.UTF32.GetBytes(_pwd);
-        Byte[] salt = GenerateSalt();
-        _hash = pwd.Concat(salt).ToArray();
-        await ComputeSaltedHash();
+        byte[] pwd = Encoding.UTF32.GetBytes(_pwd); // Convert password to byte array
+        byte[] salt = GenerateSalt(); // Create salt byte array
+        _hash = pwd.Concat(salt).ToArray(); // Combine password byte array and salt byte array
+        await ComputeSaltedHash(); // Hash (SHA-512)
 
         _showSending = true;
         StateHasChanged();
@@ -73,15 +78,15 @@
     // Send to server
         HttpResponseMessage response = await HttpClient.PostAsJsonAsync("AccountApi/Register", registrationRequest);
 
-    // In case of connection failure
+    // In case of database error
         if (response.IsSuccessStatusCode is false)
         {
-            _showConnectionFailure = true;
+            _showDatabaseConnectionError = true;
             StateHasChanged();
         }
 
     // Save to local storage
-        String token = (await response.Content.ReadAsStringAsync()).ToLowerInvariant();
+        string token = (await response.Content.ReadAsStringAsync()).ToLowerInvariant();
         await LocalStorage.SetItemAsStringAsync("token", token);
 
     // Complete!
@@ -89,9 +94,9 @@
         StateHasChanged();
     }
 
-    private static Byte[] GenerateSalt()
+    private static byte[] GenerateSalt()
     {
-        var salt = new Byte[128];
+        var salt = new byte[128];
         var rng = RandomNumberGenerator.Create();
         rng.GetBytes(salt);
         return salt;
@@ -110,12 +115,12 @@
     public void Dispose()
     {
         _cts.Cancel();
-        _resource?.Dispose();
+        _resource.Dispose();
     }
 
     private class Resource : IDisposable
     {
-        private Boolean _disposed;
+        private bool _disposed;
 
         public void Dispose()
         {

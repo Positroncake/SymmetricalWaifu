@@ -2,6 +2,6 @@ namespace SymmetricalWaifu.Shared;
 
 public class TokenClass
 {
-    public String Token { get; set; } = String.Empty;
-    public String Username { get; set; } = String.Empty;
+    public string Token { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
 }

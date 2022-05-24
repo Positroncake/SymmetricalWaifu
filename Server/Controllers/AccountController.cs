@@ -1,6 +1,5 @@
 using DatabaseAccess;
 using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
 using SymmetricalWaifu.Shared;
 
 namespace SymmetricalWaifu.Server.Controllers;
@@ -13,57 +12,41 @@ public class AccountController : ControllerBase
     [Route("Register")]
     public async Task<ActionResult> Register([FromBody] RegistrationRequest registrationRequest)
     {
-        for (var i = 0; i < 5; ++i)
+        IAccess access = new Access();
+        // Check if username is taken
+        const string checkForUsername = "SELECT * FROM accounts WHERE Username = @Username LIMIT 1";
+        List<Account> result = await access.QueryAsync<Account, dynamic>(checkForUsername, new
         {
-            try
-            {
-                IAccess access = new Access();
-                // Todo: Check if username is taken.
-                const String sql =
-                    "INSERT INTO accounts (Username, PasswordHash, PasswordSalt, DisplayName, Email, Joined, Submissions, WinningSubmissions) VALUES (@Username, @PasswordHash, @PasswordSalt, @DisplayName, @Email, @Joined, @Submissions, @WinningSubmissions)";
-                await access.ExecuteAsync(sql, new
-                {
-                    Username = registrationRequest.Username,
-                    PasswordHash = registrationRequest.PasswordHash,
-                    PasswordSalt = registrationRequest.PasswordSalt,
-                    DisplayName = registrationRequest.DisplayName,
-                    Email = registrationRequest.Email,
-                    Joined = System.DateTime.UtcNow,
-                    Submissions = 0,
-                    WinningSubmissions = 0
-                }, Utils.ConnectionString);
+            registrationRequest.Username
+        }, Utils.ConnectionString);
+        if (result.Count is 1) return Conflict("Username already exists");
 
-                String token = await Utils.NewToken(registrationRequest.Username);
-                return Ok(token);
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine($"{DateTime.UtcNow} | CONN_ERR / RGS");
-            }
-        }
+        // Store new account into database
+        const string sql =
+            "INSERT INTO accounts (Username, PasswordHash, PasswordSalt, DisplayName, Email, Joined, Submissions, WinningSubmissions) VALUES (@Username, @PasswordHash, @PasswordSalt, @DisplayName, @Email, @Joined, @Submissions, @WinningSubmissions)";
+        await access.ExecuteAsync(sql, new
+        {
+            registrationRequest.Username,
+            registrationRequest.PasswordHash,
+            registrationRequest.PasswordSalt,
+            registrationRequest.DisplayName,
+            registrationRequest.Email,
+            Joined = DateTime.UtcNow,
+            Submissions = 0,
+            WinningSubmissions = 0
+        }, Utils.ConnectionString);
 
-        return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        string token = await Utils.NewToken(registrationRequest.Username);
+        return Ok(token);
     }
 
     [HttpPost]
     [Route("Login")]
     public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        for (var i = 0; i < 5; ++i)
-        {
-            try
-            {
-                (Boolean result, Account? selected) = await Utils.Login(loginRequest);
-                if (!result) return Unauthorized();
-                String token = await Utils.NewToken(selected!.Username);
-                return Ok(token);
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine($"{DateTime.UtcNow} | CONN_ERR / LGN");
-            }
-        }
-
-        return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        (bool result, Account? selected) = await Utils.Login(loginRequest);
+        if (!result) return Unauthorized();
+        string token = await Utils.NewToken(selected!.Username);
+        return Ok(token);
     }
 }

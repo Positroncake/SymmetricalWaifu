@@ -1,6 +1,4 @@
 # Binary folders
-DatabaseAccess/bin
-DatabaseAccess/obj
 Client/bin
 Client/obj
 Server/bin
@@ -8,6 +6,8 @@ Server/obj
 Shared/bin
 Shared/obj
 Server/Waifus/
+DatabaseAccess/bin
+DatabaseAccess/obj
 # Server files
 *.db-*
 mono_crash.*.json

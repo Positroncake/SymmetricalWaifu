@@ -1,7 +1,5 @@
-using System.Security.Cryptography;
 using DatabaseAccess;
 using FileTypeChecker;
-using FileTypeChecker.Abstracts;
 using FileTypeChecker.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using SymmetricalWaifu.Shared;
@@ -14,14 +12,14 @@ public class WaifuController : ControllerBase
 {
     [HttpPost]
     [Route("AllocateWaifu")]
-    public async Task<ActionResult> AllocateWaifu([FromBody] String token)
+    public async Task<ActionResult> AllocateWaifu([FromBody] string token)
     {
         // Check if token is valid and get username if so
-        (Boolean exists, String username) = await Utils.GetUnameFromToken(token);
+        (bool exists, string username) = await Utils.GetUnameFromToken(token);
         if (exists is not true) return Unauthorized();
 
         // Get directory or create one
-        (Boolean create, String directory) = await Utils.CreateOrGetDirFromUname(username);
+        (bool create, string directory) = await Utils.CreateOrGetDirFromUname(username);
         if (create) Directory.CreateDirectory($"Waifus/{directory}");
 
         // Return info to user
@@ -39,7 +37,7 @@ public class WaifuController : ControllerBase
     {
         // Initialization
         if (Directory.Exists($"Waifus/{file.Directory}") is false) return Unauthorized();
-        String path = $"Waifus/{file.Directory}/{file.Name}{file.Extension}";
+        string path = $"Waifus/{file.Directory}/{file.Name}{file.Extension}";
 
         // Write bytes
         await using (var fs = new FileStream(path, FileMode.Append))
@@ -55,10 +53,10 @@ public class WaifuController : ControllerBase
     public async Task<ActionResult> SubmitWaifu([FromBody] WaifuSubmission waifu)
     {
         // Check file type
-        String path = $"Waifus/{waifu.Directory}/{waifu.Name}{waifu.Extension}";
+        string path = $"Waifus/{waifu.Directory}/{waifu.Name}{waifu.Extension}";
         await using (FileStream fs = System.IO.File.OpenRead(path))
         {
-            Boolean isRecognizableType = FileTypeValidator.IsTypeRecognizable(fs);
+            bool isRecognizableType = FileTypeValidator.IsTypeRecognizable(fs);
             if (isRecognizableType is false || fs.IsImage() is false)
             {
                 System.IO.File.Delete(path);
@@ -68,9 +66,9 @@ public class WaifuController : ControllerBase
 
         // Add to waifu database
         IAccess access = new Access();
-        const String sql =
+        const string sql =
             "INSERT INTO waifus (Id, ImageTitle, ImageDescription, ImagePath, Uploader, UploadDatetime, Votes, Origin) VALUES (@Id, @ImageTitle, @ImageDescription, @ImagePath, @Uploader, @UploadDatetime, @Votes, @Origin)";
-        (Boolean valid, String username) = await Utils.GetUnameFromToken(waifu.Token);
+        (bool valid, string username) = await Utils.GetUnameFromToken(waifu.Token);
         if (valid is false) return Unauthorized();
         await access.ExecuteAsync(sql, new
         {
@@ -92,8 +90,24 @@ public class WaifuController : ControllerBase
     public async Task<ActionResult> GetAllWaifus()
     {
         IAccess access = new Access();
-        const String sql = "SELECT * FROM waifus";
+        const string sql = "SELECT * FROM waifus";
         List<WaifuObject> waifus = await access.QueryAsync<WaifuObject, dynamic>(sql, new { }, Utils.ConnectionString);
         return Ok(waifus);
+    }
+
+    [HttpGet]
+    [Route("GetWaifu/{id}")]
+    public async Task<ActionResult> GetWaifuById(string id)
+    {
+        IAccess access = new Access();
+        const string sql = "SELECT * FROM waifus WHERE Id = @Id LIMIT 1";
+        List<WaifuObject> waifu = await access.QueryAsync<WaifuObject, dynamic>(sql, new
+        {
+            Id = id
+        }, Utils.ConnectionString);
+        string path = waifu.First().ImagePath;
+        byte[] bytes = await System.IO.File.ReadAllBytesAsync(path);
+        return Ok(bytes);
+        //Todo: Test this
     }
 }

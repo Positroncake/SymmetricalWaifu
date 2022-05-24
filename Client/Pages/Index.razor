@@ -1,18 +1,9 @@
 ﻿@page "/"
-@using SymmetricalWaifu.Shared
-@inject HttpClient HttpClient
 
 <PageTitle>Index</PageTitle>
 
-<button @onclick="Get">Get</button>
-
 @code {
-
-    private List<Account>? _accounts;
-
-    private async void Get()
-    {
-        _accounts = await HttpClient.GetFromJsonAsync<List<Account>>("AccountApi/GetAccounts");
-    }
+    
+    
 
 }

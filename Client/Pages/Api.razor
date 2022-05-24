@@ -23,7 +23,7 @@
 
 @code {
 
-    private String? _uname, _pwd, _token;
+    private string? _uname, _pwd, _token;
 
     private async void RequestNewFromLogin()
     {
@@ -32,13 +32,13 @@
             Username = _uname!,
             Password = Encoding.UTF32.GetBytes(_pwd!)
         };
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/NewFromLoginDetails", loginRequest);
+        await HttpClient.PostAsJsonAsync("TokenApi/NewFromLoginDetails", loginRequest);
     }
     
     private async void RequestNewFromExisting()
     {
-        String token = _token!.ToLowerInvariant();
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/NewFromExistingToken", token);
+        string token = _token!.ToLowerInvariant();
+        await HttpClient.PostAsJsonAsync("TokenApi/NewFromExistingToken", token);
     }
 
     private async void ListTokens()
@@ -48,13 +48,13 @@
             Username = _uname!,
             Password = Encoding.UTF32.GetBytes(_pwd!)
         };
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/ListTokens", loginRequest);
+        await HttpClient.PostAsJsonAsync("TokenApi/ListTokens", loginRequest);
     }
 
     private async void DeleteToken()
     {
-        String token = _token!.ToLowerInvariant();
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/DeleteToken", token);
+        string token = _token!.ToLowerInvariant();
+        await HttpClient.PostAsJsonAsync("TokenApi/DeleteToken", token);
     }
 
     private async void DeleteAllTokens()
@@ -64,7 +64,7 @@
             Username = _uname!,
             Password = Encoding.UTF32.GetBytes(_pwd!)
         };
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync("TokenApi/DeleteAllTokens", loginRequest);
+        await HttpClient.PostAsJsonAsync("TokenApi/DeleteAllTokens", loginRequest);
     }
 
 }

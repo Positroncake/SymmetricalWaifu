@@ -49,12 +49,12 @@
 @code {
 
     IBrowserFile _file = null!;
-    private String _token = String.Empty;
-    private Int64 _read;
-    private Boolean _showButton, _showProgressBar, _showSizeTooLarge, _showInvalidToken, _showComplete;
-    private String _title = String.Empty;
-    private String _desc = String.Empty;
-    private String _source = String.Empty;
+    private string _token = string.Empty;
+    private long _read;
+    private bool _showButton, _showProgressBar, _showSizeTooLarge, _showInvalidToken, _showComplete;
+    private string _title = string.Empty;
+    private string _desc = string.Empty;
+    private string _source = string.Empty;
 
     private void FileSelected(InputFileChangeEventArgs e)
     {
@@ -82,15 +82,15 @@
 
     // Pre-upload
         var filePath = await response.Content.ReadFromJsonAsync<WaifuAllocation>();
-        String directory = filePath!.Directory;
-        String name = filePath.NameWithoutExtension;
-        String extension = Path.GetExtension(_file.Name);
+        string directory = filePath!.Directory;
+        string name = filePath.NameWithoutExtension;
+        string extension = Path.GetExtension(_file.Name);
 
     // Upload
         Stream stream = _file.OpenReadStream(12582912);
         while (_read != _file.Size)
         {
-            Byte[] bytes = _read + 1048576 >= _file.Size ? new Byte[_file.Size - _read] : new Byte[1048576];
+            byte[] bytes = _read + 1048576 >= _file.Size ? new byte[_file.Size - _read] : new byte[1048576];
             _read += await stream.ReadAsync(bytes);
             var file = new WaifuDataTransfer
             {

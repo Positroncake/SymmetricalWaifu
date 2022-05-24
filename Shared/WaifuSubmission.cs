@@ -4,18 +4,18 @@ public class WaifuSubmission
 {
     #region File info
 
-    public String Directory { get; set; } = String.Empty;
-    public String Name { get; set; } = String.Empty;
-    public String Extension { get; set; } = String.Empty;
+    public string Directory { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Extension { get; set; } = string.Empty;
 
     #endregion
 
     #region Waifu info
 
-    public String Title { get; set; } = String.Empty;
-    public String Description { get; set; } = String.Empty;
-    public String Token { get; set; } = String.Empty;
-    public String Source { get; set; } = String.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Token { get; set; } = string.Empty;
+    public string Source { get; set; } = string.Empty;
 
     #endregion
 }

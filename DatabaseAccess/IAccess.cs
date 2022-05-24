@@ -2,6 +2,6 @@ namespace DatabaseAccess;
 
 public interface IAccess
 {
-    Task<List<T>> QueryAsync<T, TU>(String sql, TU parameters, String connectionString);
-    Task ExecuteAsync<T>(String sql, T parameters, String connectionString);
+    Task<List<T>> QueryAsync<T, TU>(string sql, TU parameters, string connectionString);
+    Task ExecuteAsync<T>(string sql, T parameters, string connectionString);
 }

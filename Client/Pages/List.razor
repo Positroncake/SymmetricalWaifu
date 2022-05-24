@@ -8,17 +8,32 @@
 {
     foreach (WaifuObject waifu in _waifus)
     {
-        <p>@waifu.Id @waifu.ImageTitie @waifu.Uploader @waifu.Votes</p>
+        <p>@waifu.Id @waifu.ImageTitle @waifu.ImageDescription @waifu.ImagePath @waifu.Uploader @waifu.UploadDatetime.ToString("g")Z @waifu.Votes @waifu.Origin</p>
+        <br/>
     }
+}
+
+<h3>Get by ID</h3>
+<input @bind="_id"/>
+@if (_id is not null)
+{
+    <button @onclick="RequestId">Submit</button>
 }
 
 @code {
 
     List<WaifuObject>? _waifus;
+    string? _id;
 
     protected override async Task OnInitializedAsync()
     {
         _waifus = await HttpClient.GetFromJsonAsync<List<WaifuObject>>("WaifuApi/GetAllWaifus");
+    }
+
+    private async void RequestId()
+    {
+        HttpResponseMessage waifu = await HttpClient.GetAsync($"WaifuApi/GetWaifu/{_id}");
+        var result = await waifu.Content.ReadFromJsonAsync<WaifuObject>();
     }
 
 }

@@ -2,12 +2,12 @@ namespace SymmetricalWaifu.Shared;
 
 public class Account
 {
-    public String Username { get; set; } = String.Empty;
-    public Byte[] PasswordHash { get; set; } = Array.Empty<Byte>(); // 64 Bytes (512-bit)
-    public Byte[] PasswordSalt { get; set; } = Array.Empty<Byte>(); // 128 Bytes (1024-bit)
-    public String DisplayName { get; set; } = String.Empty;
-    public String Email { get; set; } = String.Empty;
+    public string Username { get; set; } = string.Empty;
+    public byte[] PasswordHash { get; set; } = Array.Empty<byte>(); // 64 Bytes (512-bit)
+    public byte[] PasswordSalt { get; set; } = Array.Empty<byte>(); // 128 Bytes (1024-bit)
+    public string DisplayName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
     public DateTime Joined { get; set; }
-    public Int32 Submissions { get; set; }
-    public Int32 WinningSubmissions { get; set; }
+    public int Submissions { get; set; }
+    public int WinningSubmissions { get; set; }
 }

@@ -6,7 +6,7 @@ namespace DatabaseAccess;
 
 public class Access : IAccess
 {
-    public async Task<List<T>> QueryAsync<T, TU>(String sql, TU parameters, String connectionString)
+    public async Task<List<T>> QueryAsync<T, TU>(string sql, TU parameters, string connectionString)
     {
         using IDbConnection connection = new MySqlConnection(connectionString);
         // ReSharper disable once HeapView.PossibleBoxingAllocation
@@ -14,7 +14,7 @@ public class Access : IAccess
         return rows.ToList();
     }
     
-    public Task ExecuteAsync<T>(String sql, T parameters, String connectionString)
+    public Task ExecuteAsync<T>(string sql, T parameters, string connectionString)
     {
         using IDbConnection connection = new MySqlConnection(connectionString);
         // ReSharper disable once HeapView.PossibleBoxingAllocation

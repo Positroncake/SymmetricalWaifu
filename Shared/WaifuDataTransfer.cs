@@ -2,8 +2,8 @@ namespace SymmetricalWaifu.Shared;
 
 public class WaifuDataTransfer
 {
-    public String Directory { get; set; } = String.Empty;
-    public String Name { get; set; } = String.Empty;
-    public String Extension { get; set; } = String.Empty;
-    public Byte[] Contents { get; set; } = Array.Empty<Byte>();
+    public string Directory { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Extension { get; set; } = string.Empty;
+    public byte[] Contents { get; set; } = Array.Empty<byte>();
 }

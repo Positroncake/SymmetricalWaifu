@@ -2,6 +2,6 @@ namespace SymmetricalWaifu.Shared;
 
 public class WaifuAllocation
 {
-    public String Directory { get; set; } = String.Empty;
-    public String NameWithoutExtension { get; set; } = String.Empty;
+    public string Directory { get; set; } = string.Empty;
+    public string NameWithoutExtension { get; set; } = string.Empty;
 }

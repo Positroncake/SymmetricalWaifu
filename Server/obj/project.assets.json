@@ -2075,15 +2075,15 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.0, 6.0.0]"
+            "version": "[6.0.4, 6.0.4]"
           },
           {
             "name": "Microsoft.NETCore.App.Host.linux-x64",
-            "version": "[6.0.2, 6.0.2]"
+            "version": "[6.0.4, 6.0.4]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.0, 6.0.0]"
+            "version": "[6.0.4, 6.0.4]"
           }
         ],
         "frameworkReferences": {
@@ -2094,7 +2094,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/roncake/.dotnet/sdk/7.0.100-preview.2.22153.17/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.100-preview.4.22252.9/RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -8,9 +8,9 @@ namespace SymmetricalWaifu.Server.Pages;
 [IgnoreAntiforgeryToken]
 public class ErrorModel : PageModel
 {
-    public String? RequestId { get; set; }
+    public string? RequestId { get; set; }
 
-    public Boolean ShowRequestId => !String.IsNullOrEmpty(RequestId);
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
     // ReSharper disable once NotAccessedField.Local
     private readonly ILogger<ErrorModel> _logger;

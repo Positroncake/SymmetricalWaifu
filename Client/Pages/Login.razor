@@ -14,13 +14,13 @@
 
 @if (_showWrongPassword)
 {
-    <p>Wrong password.</p>
+    <p>Incorrect username and/or password.</p>
 }
 
 @code {
 
-    private String? _uname, _pwd;
-    private Boolean _showWrongPassword;
+    private string? _uname, _pwd;
+    private bool _showWrongPassword;
 
     private async void SendToServer()
     {
@@ -36,7 +36,7 @@
             _showWrongPassword = true;
             return;
         }
-        String token = (await response.Content.ReadAsStringAsync()).ToLowerInvariant();
+        string token = (await response.Content.ReadAsStringAsync()).ToLowerInvariant();
         await LocalStorage.SetItemAsStringAsync("token", token);
     }
 

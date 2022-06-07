@@ -6,20 +6,20 @@ namespace SymmetricalWaifu.Server;
 
 public static class Utils
 {
-    public const string ConnectionString = "Server=127.0.0.1;Port=3306;Database=symmetrical_waifu;Uid=waifudatabase;Pwd=SEO5tImFglekXDrDbzeTO4VpN7ki7jFX";
+    public const string ConnectionString = "Server=127.0.0.1;Port=3306;Database=symmetrical_waifu;Uid=symmetrical_waifu_user;Pwd=SEO5tImFglekXDrDbzeTO4VpN7ki7jFX";
 
-    public static async Task<(bool, Account?)> Login(LoginRequest loginRequest)
+    public static async Task<(bool, AccountDbObject?)> Login(LoginRequest loginRequest)
     {
         // Get account from database if exists
         IAccess access = new Access();
         const string sql = "SELECT * FROM accounts WHERE Username = @LoginUsername LIMIT 1";
-        List<Account> accounts = await access.QueryAsync<Account, dynamic>(sql, new
+        List<AccountDbObject> accounts = await access.QueryAsync<AccountDbObject, dynamic>(sql, new
         {
             LoginUsername = loginRequest.Username
         }, ConnectionString);
         
         // Check if account exists
-        Account selected;
+        AccountDbObject selected;
         if (accounts.Count == 1) selected = accounts.First();
         else return (false, null);
 
@@ -52,7 +52,7 @@ public static class Utils
         // Get token from database if exists
         IAccess access = new Access();
         const string sql = "SELECT * FROM tokens WHERE Token = @Token LIMIT 1";
-        List<TokenClass> results = await access.QueryAsync<TokenClass, dynamic>(sql, new
+        List<TokenDbObject> results = await access.QueryAsync<TokenDbObject, dynamic>(sql, new
         {
             Token = token
         }, ConnectionString);
@@ -65,7 +65,7 @@ public static class Utils
     {
         IAccess access = new Access();
         const string sql = "SELECT * FROM directories WHERE Username = @Username LIMIT 1";
-        List<DirectoryClass> directories = await access.QueryAsync<DirectoryClass, dynamic>(sql, new
+        List<DirectoryDbObject> directories = await access.QueryAsync<DirectoryDbObject, dynamic>(sql, new
         {
             Username = username
         }, ConnectionString);

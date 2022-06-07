@@ -12,7 +12,7 @@ public class TokenController : ControllerBase
     [Route("NewFromLoginDetails")]
     public async Task<ActionResult> NewFromLoginDetails([FromBody] LoginRequest loginRequest)
     {
-        (bool result, Account? selected) = await Utils.Login(loginRequest);
+        (bool result, AccountDbObject? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         string token = await Utils.NewToken(selected!.Username);
         return Ok(token);
@@ -37,13 +37,13 @@ public class TokenController : ControllerBase
     [Route("ListTokens")]
     public async Task<ActionResult> GetAllTokens([FromBody] LoginRequest loginRequest)
     {
-        (bool result, Account? selected) = await Utils.Login(loginRequest);
+        (bool result, AccountDbObject? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         
         // Get tokens
         IAccess access = new Access();
         const string sql = "SELECT * FROM tokens WHERE Username = @Username";
-        List<TokenClass> tokens = await access.QueryAsync<TokenClass, dynamic>(sql, new
+        List<TokenDbObject> tokens = await access.QueryAsync<TokenDbObject, dynamic>(sql, new
         {
             selected!.Username
         }, Utils.ConnectionString);
@@ -67,7 +67,7 @@ public class TokenController : ControllerBase
     [Route("DeleteAllTokens")]
     public async Task<ActionResult> DeleteAllTokens([FromBody] LoginRequest loginRequest)
     {
-        (bool result, Account? selected) = await Utils.Login(loginRequest);
+        (bool result, AccountDbObject? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         
         // Delete all tokens

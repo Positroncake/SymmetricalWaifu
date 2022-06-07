@@ -1,6 +1,6 @@
 namespace SymmetricalWaifu.Shared;
 
-public class Account
+public class AccountDbObject
 {
     public string Username { get; set; } = string.Empty;
     public byte[] PasswordHash { get; set; } = Array.Empty<byte>(); // 64 Bytes (512-bit)

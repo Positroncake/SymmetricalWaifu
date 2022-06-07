@@ -1,6 +1,6 @@
 namespace SymmetricalWaifu.Shared;
 
-public class WaifuObject
+public class WaifuDbObject
 {
     public string Id { get; set; } = string.Empty;
     public string ImageTitle { get; set; } = string.Empty;

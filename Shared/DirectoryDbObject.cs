@@ -1,7 +1,7 @@
 namespace SymmetricalWaifu.Shared;
 
-public class TokenClass
+public class DirectoryDbObject
 {
-    public string Token { get; set; } = string.Empty;
     public string Username { get; set; } = string.Empty;
+    public string Dir { get; set; } = string.Empty;
 }

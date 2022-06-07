@@ -1,12 +1,13 @@
 @page "/List"
 @using SymmetricalWaifu.Shared
+@using System.Net
 @inject HttpClient HttpClient
 
 <h3>List</h3>
 
 @if (_waifus is not null)
 {
-    foreach (WaifuObject waifu in _waifus)
+    foreach (WaifuDbObject waifu in _waifus)
     {
         <p>@waifu.Id @waifu.ImageTitle @waifu.ImageDescription @waifu.ImagePath @waifu.Uploader @waifu.UploadDatetime.ToString("g")Z @waifu.Votes @waifu.Origin</p>
         <br/>
@@ -15,25 +16,49 @@
 
 <h3>Get by ID</h3>
 <input @bind="_id"/>
+@if (_imageDataUrl is not null)
+{
+    <img src="@_imageDataUrl" alt=""/>
+}
+@if (_showInvalidIdError)
+{
+    <p>Invalid Image ID.</p>
+}
+
+
 @if (_id is not null)
 {
-    <button @onclick="RequestId">Submit</button>
+    <button @onclick="RequestById">Submit</button>
 }
 
 @code {
 
-    List<WaifuObject>? _waifus;
+    List<WaifuDbObject>? _waifus;
     string? _id;
+    string? _imageDataUrl;
+    bool _showInvalidIdError;
 
     protected override async Task OnInitializedAsync()
     {
-        _waifus = await HttpClient.GetFromJsonAsync<List<WaifuObject>>("WaifuApi/GetAllWaifus");
+        _waifus = await HttpClient.GetFromJsonAsync<List<WaifuDbObject>>("WaifuApi/GetAllWaifus");
     }
 
-    private async void RequestId()
+    private async void RequestById()
     {
+        _showInvalidIdError = false;
+        
         HttpResponseMessage waifu = await HttpClient.GetAsync($"WaifuApi/GetWaifu/{_id}");
-        var result = await waifu.Content.ReadFromJsonAsync<WaifuObject>();
+        var result = await waifu.Content.ReadFromJsonAsync<WaifuDownload>();
+        if (waifu.StatusCode is HttpStatusCode.NotFound || result is null)
+        {
+            _showInvalidIdError = true;
+            StateHasChanged();
+            return;
+        }
+        
+        string imageSrc = Convert.ToBase64String(result.Bytes);
+        _imageDataUrl = $"data:image/svg+xml;base64,{imageSrc}";
+        StateHasChanged();
     }
 
 }

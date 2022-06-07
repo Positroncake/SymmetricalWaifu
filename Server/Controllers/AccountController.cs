@@ -8,6 +8,8 @@ namespace SymmetricalWaifu.Server.Controllers;
 [Route("AccountApi")]
 public class AccountController : ControllerBase
 {
+    //Todo: Add username and display name length constraints
+    
     [HttpPost]
     [Route("Register")]
     public async Task<ActionResult> Register([FromBody] RegistrationRequest registrationRequest)
@@ -15,7 +17,7 @@ public class AccountController : ControllerBase
         IAccess access = new Access();
         // Check if username is taken
         const string checkForUsername = "SELECT * FROM accounts WHERE Username = @Username LIMIT 1";
-        List<Account> result = await access.QueryAsync<Account, dynamic>(checkForUsername, new
+        List<AccountDbObject> result = await access.QueryAsync<AccountDbObject, dynamic>(checkForUsername, new
         {
             registrationRequest.Username
         }, Utils.ConnectionString);
@@ -44,7 +46,7 @@ public class AccountController : ControllerBase
     [Route("Login")]
     public async Task<ActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        (bool result, Account? selected) = await Utils.Login(loginRequest);
+        (bool result, AccountDbObject? selected) = await Utils.Login(loginRequest);
         if (!result) return Unauthorized();
         string token = await Utils.NewToken(selected!.Username);
         return Ok(token);

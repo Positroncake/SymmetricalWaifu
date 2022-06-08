@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Uqb5EqSzlQhLE7+iuZyxbaLOlYREOY5eWZkTj2Um0rNrlYaC0asTFaShjtCNNs5puebmFFEwf7aknmEgZY8CNw==",
+  "dgSpecHash": "DUtDdNjYDnIyb1B2EGpNj8YuvnlxlOpoPM0ndlFVtOV0VZKGhGwtKuFwnx1B8JLV1pJyTZp1GfVkz+GFRH94YQ==",
   "success": true,
-  "projectFilePath": "/home/roncake/RiderProjects/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj",
+  "projectFilePath": "/home/positron/RiderProjects/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj",
   "expectedPackageFiles": [
-    "/home/roncake/.nuget/packages/microsoft.netcore.app.ref/6.0.4/microsoft.netcore.app.ref.6.0.4.nupkg.sha512",
-    "/home/roncake/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.4/microsoft.aspnetcore.app.ref.6.0.4.nupkg.sha512"
+    "/home/positron/.nuget/packages/microsoft.netcore.app.ref/6.0.4/microsoft.netcore.app.ref.6.0.4.nupkg.sha512",
+    "/home/positron/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.4/microsoft.aspnetcore.app.ref.6.0.4.nupkg.sha512"
   ],
   "logs": []
 }

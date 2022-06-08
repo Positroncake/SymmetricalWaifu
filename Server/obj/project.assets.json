@@ -2007,19 +2007,19 @@
     ]
   },
   "packageFolders": {
-    "/home/roncake/.nuget/packages/": {}
+    "/home/positron/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/roncake/RiderProjects/SymmetricalWaifu/Server/SymmetricalWaifu.Server.csproj",
+      "projectUniqueName": "/home/positron/RiderProjects/SymmetricalWaifu/Server/SymmetricalWaifu.Server.csproj",
       "projectName": "SymmetricalWaifu.Server",
-      "projectPath": "/home/roncake/RiderProjects/SymmetricalWaifu/Server/SymmetricalWaifu.Server.csproj",
-      "packagesPath": "/home/roncake/.nuget/packages/",
-      "outputPath": "/home/roncake/RiderProjects/SymmetricalWaifu/Server/obj/",
+      "projectPath": "/home/positron/RiderProjects/SymmetricalWaifu/Server/SymmetricalWaifu.Server.csproj",
+      "packagesPath": "/home/positron/.nuget/packages/",
+      "outputPath": "/home/positron/RiderProjects/SymmetricalWaifu/Server/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/roncake/.nuget/NuGet/NuGet.Config"
+        "/home/positron/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -2031,14 +2031,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/roncake/RiderProjects/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj": {
-              "projectPath": "/home/roncake/RiderProjects/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj"
+            "/home/positron/RiderProjects/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj": {
+              "projectPath": "/home/positron/RiderProjects/SymmetricalWaifu/Client/SymmetricalWaifu.Client.csproj"
             },
-            "/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj": {
-              "projectPath": "/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj"
+            "/home/positron/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj": {
+              "projectPath": "/home/positron/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj"
             },
-            "/home/roncake/RiderProjects/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj": {
-              "projectPath": "/home/roncake/RiderProjects/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj"
+            "/home/positron/RiderProjects/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj": {
+              "projectPath": "/home/positron/RiderProjects/SymmetricalWaifu/Shared/SymmetricalWaifu.Shared.csproj"
             }
           }
         }

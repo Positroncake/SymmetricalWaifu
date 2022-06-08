@@ -880,19 +880,19 @@
     ]
   },
   "packageFolders": {
-    "/home/roncake/.nuget/packages/": {}
+    "/home/positron/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj",
+      "projectUniqueName": "/home/positron/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj",
       "projectName": "DatabaseAccess",
-      "projectPath": "/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj",
-      "packagesPath": "/home/roncake/.nuget/packages/",
-      "outputPath": "/home/roncake/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/",
+      "projectPath": "/home/positron/RiderProjects/SymmetricalWaifu/DatabaseAccess/DatabaseAccess.csproj",
+      "packagesPath": "/home/positron/.nuget/packages/",
+      "outputPath": "/home/positron/RiderProjects/SymmetricalWaifu/DatabaseAccess/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/roncake/.nuget/NuGet/NuGet.Config"
+        "/home/positron/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"

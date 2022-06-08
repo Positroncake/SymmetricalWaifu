@@ -143,6 +143,5 @@ public class WaifuController : ControllerBase
 		};
 
 		return Ok(result);
-		//Todo: Test this
 	}
 }
